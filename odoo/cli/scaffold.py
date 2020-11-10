@@ -25,6 +25,8 @@ class Scaffold(Command):
             help="Use a custom module template, can be a template name or the"
                  " path to a module template (default: %(default)s)")
         parser.add_argument('name', help="Name of the module to create")
+        parser.add_argument('--sentence', help="String of the field to create")
+        parser.add_argument('--field_after', help="Field before your new field to show.")
         parser.add_argument(
             'dest', default='.', nargs='?',
             help="Directory to create the module in (default: %(default)s)")
@@ -36,7 +38,7 @@ class Scaffold(Command):
         args.template.render_to(
             snake(args.name),
             directory(args.dest, create=True),
-            {'name': args.name})
+            {'name': args.name, 'sentence': args.sentence, 'field_after': args.field_after})
 
     def epilog(self):
         return "Built-in templates available are: %s" % ', '.join(
